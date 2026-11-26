@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#3b3b8f">
+<title>Caixa da Igreja</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<header class="topo noprint">
+  <h1>⛪ Caixa da Aliança Gourmet</h1>
+  <div id="sessao" class="sessao hidden">
+    <span id="usuarioInfo"></span>
+    <button id="sair" class="pequeno-btn">Sair</button>
+  </div>
+</header>
+
+<div id="aviso" class="aviso hidden"></div>
+
+<!-- LOGIN -->
+<section id="login" class="tela">
+  <div class="card">
+    <h2>Entrar</h2>
+    <form id="formLogin">
+      <label for="email">E-mail</label>
+      <input id="email" type="email" autocomplete="username" required>
+      <label for="senha">Senha</label>
+      <input id="senha" type="password" autocomplete="current-password" required>
+      <div id="erroLogin" class="erro"></div>
+      <button class="btn" type="submit">Entrar</button>
+    </form>
+  </div>
+</section>
+
+<!-- APLICAÇÃO -->
+<div id="app" class="hidden">
+  <nav class="noprint">
+    <button data-aba="vender" class="ativo">Vender</button>
+    <button data-aba="caixa">Caixa</button>
+    <button data-aba="relatorio">Relatório</button>
+    <button data-aba="cadastro" class="admin-only hidden">Cadastro</button>
+  </nav>
+
+  <main>
+    <!-- VENDER -->
+    <section id="aba-vender">
+      <div class="card">
+        <div id="grade" class="grid"></div>
+      </div>
+
+      <div class="card">
+        <h3>Venda atual</h3>
+        <div id="carrinho"></div>
+        <div class="total" id="totalVenda">R$ 0,00</div>
+
+        <label for="pagamento">Forma de pagamento</label>
+        <select id="pagamento">
+          <option value="dinheiro">Dinheiro</option>
+          <option value="pix">Pix</option>
+          <option value="cartao">Cartão</option>
+        </select>
+
+        <div id="areaDinheiro">
+          <label for="recebido">Valor recebido</label>
+          <input id="recebido" inputmode="decimal" placeholder="0,00">
+          <div class="troco" id="troco"></div>
+        </div>
+
+        <div class="erro" id="erroVenda"></div>
+        <button class="btn" id="finalizar">Finalizar venda</button>
+        <button class="btn sec" id="limpar">Limpar venda</button>
+        <div id="pendencias" class="pendencias hidden"></div>
+      </div>
+    </section>
+
+    <!-- CAIXA -->
+    <section id="aba-caixa" class="hidden">
+      <div class="card"><div id="caixaStatus"></div></div>
+
+      <div class="card">
+        <form id="formAbrir">
+          <h3>Abrir caixa</h3>
+          <label for="saldoInicial">Troco inicial em dinheiro (R$)</label>
+          <input id="saldoInicial" inputmode="decimal" placeholder="0,00">
+          <button class="btn" type="submit">Abrir caixa</button>
+        </form>
+
+        <form id="formFechar" class="hidden">
+          <h3>Fechar caixa</h3>
+          <label for="contado">Dinheiro contado na gaveta (R$)</label>
+          <input id="contado" inputmode="decimal" placeholder="0,00" required>
+          <button class="btn" type="submit">Fechar caixa</button>
+          <div id="resultadoFechamento"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- RELATÓRIO -->
+    <section id="aba-relatorio" class="hidden">
+      <div class="card noprint">
+        <label for="dataRel">Data</label>
+        <input type="date" id="dataRel">
+        <button class="btn sec" id="imprimir">Imprimir</button>
+      </div>
+      <div id="relatorio" class="card"></div>
+    </section>
+
+    <!-- CADASTRO (admin) -->
+    <section id="aba-cadastro" class="hidden">
+      <div class="card">
+        <h3>Novo item</h3>
+        <form id="formProduto">
+          <label for="pNome">Nome</label>
+          <input id="pNome" required>
+          <label for="pPreco">Valor (R$)</label>
+          <input id="pPreco" inputmode="decimal" placeholder="0,00" required>
+          <label for="pEstoque">Estoque inicial</label>
+          <input id="pEstoque" inputmode="numeric" value="0">
+          <button class="btn" type="submit">Cadastrar item</button>
+        </form>
+      </div>
+      <div class="card">
+        <h3>Itens</h3>
+        <div id="listaCadastro"></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
